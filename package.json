@@ -1,0 +1,19 @@
+{
+  "name": "react-speed",
+  "version": "1.0.0",
+  "description": "Developer",
+  "main": "index.js",
+  "author": "Alberto Navarro",
+  "license": "MIT",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "build": "esbuild --platform=node --minify --bundle --outdir=dist src/server.tsx"
+  },
+  "dependencies": {
+    "esbuild": "^0.14.16",
+    "express": "^4.17.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
