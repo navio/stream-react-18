@@ -17,8 +17,9 @@
    const ctx = useContext(DataContext);
    if (ctx !== null) {
      ctx.read();
+     return myData;
    }
-   return myData;
+   return 'no data';
  }
  
 
