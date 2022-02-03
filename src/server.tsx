@@ -7,6 +7,8 @@ import { DataProvider, getData } from "./ContextFaker";
 const app = express();
 const port = 3000;
 
+app.use(express.static('dist'));
+
 app.get("/", (req, res) => {
   const jsx = ReactDOMServer.renderToString(<App name="alberto" info="SSR" />);
   res.send(jsx);
@@ -14,8 +16,6 @@ app.get("/", (req, res) => {
 
 app.get("/stream", async (req, res) => {
   let didError = false;
-
-
 
   const stream = getData();
   const { pipe, abort } = ReactDOMServer.renderToPipeableStream(
@@ -37,6 +37,20 @@ app.get("/stream", async (req, res) => {
   );
 });
 
+app.get("/csr",async (req, res) => {
+  res.send(`
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>CSR</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    </body>
+  <script src="/index.js"></script>
+  </html>`);
+});
+
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Listening on port ${port} ☄️ ☄️ ☄️ ☄️`);
 });

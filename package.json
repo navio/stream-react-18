@@ -8,6 +8,7 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
+    "client": "esbuild --bundle --outdir=dist src/index.tsx",
     "build": "esbuild --platform=node --minify --bundle --outdir=dist src/server.tsx"
   },
   "dependencies": {

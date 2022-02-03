@@ -4,12 +4,12 @@ import { useData } from "./ContextFaker";
 
 export default (props) => {
   return (
-    <body>
+    <div>
       <h1>Hello: {props.name}</h1>
       <Suspense fallback={'loading'}>
         <Container />
       </Suspense>
-    </body>
+    </div>
   );
 };
 
