@@ -1,8 +1,8 @@
 
 
  import React, {createContext, useContext} from 'react';
-
- const DataContext = createContext(null);
+const DataContext = createContext(null);
+require('isomorphic-fetch');
  
  export function DataProvider({children, data}) {
    return <DataContext.Provider value={data}>{children}</DataContext.Provider>;
@@ -16,8 +16,10 @@
  export function useData() {
    const ctx = useContext(DataContext);
    if (ctx !== null) {
-     ctx.read();
-     return myData;
+     let data = ctx.read();
+     if(data){
+       return data;
+     }
    }
    return 'no data';
  }
@@ -29,18 +31,15 @@
     return {
       read: () => {
         if (done) {
-          return;
+          return done;
         }
         if (promise) {
           throw promise;
         }
-        promise = new Promise((resolve) => {
-          setTimeout(() => {
-            done = true;
-            promise = null;
-            resolve('');
-          }, 1000);
-        });
+        promise = fetch("https://jsonplaceholder.typicode.com/todos/1")
+        .then((x) => x.json())
+        .then((x) => (done = x.title));
+        
         throw promise;
       },
     }
