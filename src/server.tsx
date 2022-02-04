@@ -7,10 +7,15 @@ import { DataProvider, getData } from "./ContextFaker";
 const app = express();
 const port = 3000;
 
-app.use(express.static('dist'));
+app.use(express.static("dist"));
 
 app.get("/", (req, res) => {
-  const jsx = ReactDOMServer.renderToString(<App name="alberto" info="SSR" />);
+  const stream = getData();
+  const jsx = ReactDOMServer.renderToString(
+    <DataProvider data={stream}>
+      <App name="alberto" info="SSR" />
+    </DataProvider>
+  );
   res.send(jsx);
 });
 
@@ -37,7 +42,7 @@ app.get("/stream", async (req, res) => {
   );
 });
 
-app.get("/csr",async (req, res) => {
+app.get("/csr", async (req, res) => {
   res.send(`
   <!DOCTYPE html>
   <html>
