@@ -16,7 +16,34 @@ app.get("/", (req, res) => {
       <App name="alberto" info="SSR" />
     </DataProvider>
   );
-  res.send(jsx);
+  res.send(`<!DOCTYPE html>
+  <html>
+  <head>
+    <title>CSR</title>
+  </head>
+  <body>
+    <div id="root">${jsx}</div>
+    </body>
+  </html>`);
+});
+
+app.get("/hydrate", (req, res) => {
+  const stream = getData();
+  const jsx = ReactDOMServer.renderToString(
+    <DataProvider data={stream}>
+      <App name="alberto" info="SSR" />
+    </DataProvider>
+  );
+  res.send(`<!DOCTYPE html>
+  <html>
+  <head>
+    <title>CSR</title>
+  </head>
+  <body>
+    <div id="root">${jsx}</div>
+    </body>
+  <script src="/index.js"></script>
+  </html>`);
 });
 
 app.get("/stream", async (req, res) => {
